@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "775673455956",
+    "project_id": "makkost-65394",
+    "storage_bucket": "makkost-65394.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775673455956:android:234e4fc8db820d752d94c1",
+        "android_client_info": {
+          "package_name": "com.ptikel5.makkost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775673455956-m02v61jo41o2hsvphh64qfv107bcq1cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ptikel5.makkost",
+            "certificate_hash": "4010d00a9d3caf3acb6354d95d7d3a36a1db16a8"
+          }
+        },
+        {
+          "client_id": "775673455956-3blrkg0oshk3utibg74b82q31u7tc7v8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY2Y5GOvI8QjbMSdCUQV9P3CxryMvhrX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775673455956-3blrkg0oshk3utibg74b82q31u7tc7v8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
