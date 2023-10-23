@@ -10,9 +10,21 @@
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="tambah"
+        android:title="Kamar"
+        android:icon="@drawable/baseline_airline_seat_individual_suite_24"
+        android:id="@+id/kamar"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="penyewa"
         android:icon="@drawable/baseline_person_add_24"
-        android:id="@+id/tambah"/>
+        android:id="@+id/penyewa"/>
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Pembayaran"
+        android:icon="@drawable/baseline_payments_24"
+        android:id="@+id/pembayaran"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

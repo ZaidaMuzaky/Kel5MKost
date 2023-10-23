@@ -3,7 +3,7 @@ package com.ptikel5.makkost
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.ptikel5.makkost.databinding.ActivityMainBinding
+import com.ptikel5.makkost.databinding.ActivityMainBinding 
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.beranda -> replaceFragment(BerandaFragment())
-                R.id.tambah -> replaceFragment(TambahFragment())
+                R.id.kamar -> replaceFragment(KamarFragment())
+                R.id.penyewa -> replaceFragment(PenyewaFragment())
+                R.id.pembayaran -> replaceFragment(PembayaranFragment())
                 R.id.pengaturan -> replaceFragment(PengaturanFragment())
 
                 else->{
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-    }
+}
 //    mengganti fragment
     private fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
