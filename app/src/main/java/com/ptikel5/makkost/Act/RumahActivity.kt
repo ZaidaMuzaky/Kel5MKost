@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.ptikel5.makkost.MainActivity
-import android.widget.EditText
 import android.widget.Toast
 import com.ptikel5.makkost.PengaturanFragment
 import com.ptikel5.makkost.databinding.ActivityRumahBinding
@@ -40,8 +38,7 @@ class RumahActivity : AppCompatActivity() {
         val alamatRumah = binding.inpAlamat.text.toString()
 
         val dataRumah = Rumah(idRumah, namaRumah, alamatRumah)
-
-        database.setValue(dataRumah).addOnCompleteListener {
+        database.child(namaRumah).setValue(dataRumah).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahakan data rumah", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PengaturanFragment::class.java)
             startActivity(intent)

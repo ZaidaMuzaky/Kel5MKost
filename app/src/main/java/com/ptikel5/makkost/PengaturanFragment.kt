@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.ptikel5.makkost.Act.ListRumActivity
 import com.ptikel5.makkost.Act.RumahActivity
 import com.ptikel5.makkost.databinding.FragmentPengaturanBinding
 
@@ -38,6 +39,10 @@ class PengaturanFragment : Fragment() {
 
         binding.totmbRumah.setOnClickListener {
             val intent = Intent(activity, RumahActivity::class.java)
+            startActivity(intent)
+        }
+        binding.listrum.setOnClickListener {
+            val intent = Intent(activity, ListRumActivity::class.java)
             startActivity(intent)
         }
 
