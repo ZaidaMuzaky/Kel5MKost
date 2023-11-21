@@ -1,5 +1,6 @@
 package com.ptikel5.makkost.Act
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -7,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ptikel5.makkost.R
 import com.ptikel5.makkost.databinding.ActivityDetailRumahBinding
@@ -15,6 +17,7 @@ import com.ptikel5.makkost.datacl.Rumah
 class detailRumahActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailRumahBinding
+    private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityDetailRumahBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -28,6 +31,21 @@ class detailRumahActivity : AppCompatActivity() {
                 intent.getStringExtra("alamatRumah").toString()
             )
         }
+        binding.btnDelete.setOnClickListener {
+            deletedata(intent.getStringExtra("idRumah").toString())
+        }
+    }
+
+    private fun deletedata(idRumah: String) {
+        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        database.child(idRumah).removeValue().addOnSuccessListener {
+            val intent = Intent(this, ListRumActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "gagal hapus", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun initView() {
@@ -47,8 +65,8 @@ class detailRumahActivity : AppCompatActivity() {
 
         mDialog.setView(mDialogView)
 
-        val ednamaRumah = mDialogView.findViewById<TextInputEditText>(R.id.update_namaR)
-        val edalamatRumah = mDialogView.findViewById<TextInputEditText>(R.id.update_alamatR)
+        val ednamaRumah = mDialogView.findViewById<EditText>(R.id.upd_rumah)
+        val edalamatRumah = mDialogView.findViewById<EditText>(R.id.upd_alarumah)
         val btnupdateRumah = mDialogView.findViewById<Button>(R.id.update_rumah)
 
         ednamaRumah.setText(intent.getStringExtra("namaRumah").toString())
@@ -59,17 +77,13 @@ class detailRumahActivity : AppCompatActivity() {
         val alertDialog = mDialog.create()
         alertDialog.show()
         btnupdateRumah.setOnClickListener {
+            val namaRumah = ednamaRumah.text.toString()
+            val alamatRumah = edalamatRumah.text.toString()
             updateRumahData(
                 idRumah,
-                ednamaRumah.text.toString(),
-                edalamatRumah.text.toString()
+                namaRumah,
+                alamatRumah
             )
-
-            Toast.makeText(applicationContext, "Data Rumah ter update", Toast.LENGTH_LONG).show()
-
-            binding.tvDtnamaRumah.text = ednamaRumah.toString()
-            binding.tvDtalamatRumah.text = edalamatRumah.toString()
-
             alertDialog.dismiss()
         }
     }
@@ -78,9 +92,18 @@ class detailRumahActivity : AppCompatActivity() {
         namaRumah: String,
         alamatRumah: String
     ) {
-        val dbRef = FirebaseDatabase.getInstance().getReference("rumah").child(namaRumah)
-        val rumahin = Rumah(idRumah, namaRumah, alamatRumah)
-        dbRef.setValue(rumahin)
+        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        val rumahin = mapOf<String,String>(
+            "namaRumah" to namaRumah,
+            "alamatRumah" to alamatRumah
+        )
+       database.child(idRumah).updateChildren(rumahin).addOnSuccessListener {
+           Toast.makeText(this, "berhasil edit", Toast.LENGTH_SHORT).show()
+       }
+           .addOnFailureListener {
+               Toast.makeText(this, "gagal edit", Toast.LENGTH_SHORT).show()
+           }
+
     }
 
 
