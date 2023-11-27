@@ -38,7 +38,7 @@ class RumahActivity : AppCompatActivity() {
         val alamatRumah = binding.inpAlamat.text.toString()
 
         val dataRumah = Rumah(idRumah, namaRumah, alamatRumah)
-        database.child(idRumah).setValue(dataRumah).addOnCompleteListener {
+        database.child(namaRumah).setValue(dataRumah).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahakan data rumah", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PengaturanFragment::class.java)
             startActivity(intent)
