@@ -184,11 +184,11 @@
                             android:textStyle="bold"/>
 
                         <TextView
-                            android:id="@+id/tv_data_kamar"
+                            android:id="@+id/tv_noKamar"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="test2"
+                            android:text="test1"
                             android:layout_weight="1"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
@@ -222,7 +222,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="test1"
+                            android:text="test2"
                             android:layout_weight="1"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
@@ -256,7 +256,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="test1"
+                            android:text="test3"
                             android:layout_weight="1"
                             android:textColor="@color/black"
                             android:textSize="20sp" />

@@ -32,7 +32,7 @@ class detailRumahActivity : AppCompatActivity() {
             )
         }
         binding.btnDelete.setOnClickListener {
-            deletedata(intent.getStringExtra("idRumah").toString())
+            deletedata(intent.getStringExtra("namaRumah").toString())
         }
     }
 
@@ -42,6 +42,7 @@ class detailRumahActivity : AppCompatActivity() {
             val intent = Intent(this, ListRumActivity::class.java)
             startActivity(intent)
             Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
+            onDestroy()
         }.addOnFailureListener {
             Toast.makeText(this, "gagal hapus", Toast.LENGTH_SHORT).show()
         }
