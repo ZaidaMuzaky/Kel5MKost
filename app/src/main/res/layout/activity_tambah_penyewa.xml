@@ -53,11 +53,11 @@
         app:layout_constraintTop_toBottomOf="@+id/tmb_penyewa">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inp_alamat"
+            android:id="@+id/inp_alamatPeneyewa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:lines="5"
+            android:lines="2"
             android:gravity="top"
             android:overScrollMode="always"
             android:scrollHorizontally="false"/>
@@ -123,25 +123,48 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <Button-->
-<!--        android:id="@+id/smp_rumah"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:backgroundTint="@color/teal_700"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/tmb_alamatr"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tmb_alamatr"-->
-<!--        android:text="simpan"/>-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_StatusPenyewa"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Status Penyewa"
+        android:contentDescription="Status Kamar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tmb_email">
 
-<!--    <Button-->
-<!--        android:id="@+id/btl"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="32sp"-->
-<!--        android:text="Batal"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:backgroundTint="@color/red"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/tmb_alamatr"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/tmb_alamatr" />-->
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/inp_statusPenyewa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="Status Penyewa"
+            tools:ignore="KeyboardInaccessibleWidget" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/smp_Penyewa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/teal_700"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_StatusPenyewa"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_StatusPenyewa"
+        android:text="simpan"/>
+
+    <Button
+        android:id="@+id/btl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32sp"
+        android:text="Batal"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/red"
+        app:layout_constraintStart_toStartOf="@+id/spinner_StatusPenyewa"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_StatusPenyewa" />
 </androidx.constraintlayout.widget.ConstraintLayout>

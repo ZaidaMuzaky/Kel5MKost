@@ -48,7 +48,7 @@ class TambahKamarActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataAdapter.clear()
                 for (ds in snapshot.children) {
-                    val idRumahIDT = ds.child("idRumah").value.toString()
+//                    val idRumahIDT = ds.child("idRumah").value.toString()
                     val name = ds.child("namaRumah").value.toString()
                     dataAdapter.add(name)
                 }
