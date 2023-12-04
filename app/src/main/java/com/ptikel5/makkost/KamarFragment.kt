@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.ptikel5.makkost.Act.TambahKamarActivity
+import com.ptikel5.makkost.Act.detailKamarActivity
+import com.ptikel5.makkost.Act.detailRumahActivity
 import com.ptikel5.makkost.adapt.kamAdapt
 import com.ptikel5.makkost.databinding.FragmentKamarBinding
 import com.ptikel5.makkost.datacl.KamarCl
@@ -108,6 +110,20 @@ class KamarFragment : Fragment() {
         viewModel.allKamar.observe(viewLifecycleOwner, Observer {
 
             adapter.updatekamarlist(it)
+
+        })
+        adapter.setOnItemClickListener(object : kamAdapt.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(requireActivity(), detailKamarActivity::class.java)
+
+                intent.putExtra("idKamar", kamarArrayList[position].idKamar)
+                intent.putExtra("idRumah", kamarArrayList[position].idRumah)
+                intent.putExtra("noKamar", kamarArrayList[position].noKamar)
+                intent.putExtra("fasilitasKamar", kamarArrayList[position].fasilitasKamar)
+                intent.putExtra("statusKamar", kamarArrayList[position].statusKamar)
+
+                startActivity(intent)
+            }
 
         })
 

@@ -8,17 +8,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ptikel5.makkost.R
 import com.ptikel5.makkost.datacl.KamarCl
 
-class kamAdapt : RecyclerView.Adapter<kamAdapt.MyViewHolder>() {
+class kamAdapt() : RecyclerView.Adapter<kamAdapt.MyViewHolder>() {
 
     private val kamarList = ArrayList<KamarCl>()
 
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(clickListener: onItemClickListener) {
+        mListener = clickListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.kamarlist,
-            parent,false
+            parent, false
         )
-        return MyViewHolder(itemView)
+        return MyViewHolder(itemView, mListener)
 
     }
 
@@ -36,7 +45,7 @@ class kamAdapt : RecyclerView.Adapter<kamAdapt.MyViewHolder>() {
         return kamarList.size
     }
 
-    fun updatekamarlist(kamarlist : List<KamarCl>){
+    fun updatekamarlist(kamarlist: List<KamarCl>) {
 
         this.kamarList.clear()
         this.kamarList.addAll(kamarlist)
@@ -44,14 +53,19 @@ class kamAdapt : RecyclerView.Adapter<kamAdapt.MyViewHolder>() {
 
     }
 
-    class  MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View, clickListener: onItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
 
-        val noKamar : TextView = itemView.findViewById(R.id.tv_noKamar)
-        val statusKamar : TextView = itemView.findViewById(R.id.tv_status)
-        val biayaKamar : TextView = itemView.findViewById(R.id.tv_harga)
+        val noKamar: TextView = itemView.findViewById(R.id.tv_noKamar)
+        val statusKamar: TextView = itemView.findViewById(R.id.tv_status)
+        val biayaKamar: TextView = itemView.findViewById(R.id.tv_harga)
+
+        init {
+            itemView.setOnClickListener {
+                clickListener.onItemClick(adapterPosition)
+            }
+        }
+
 
     }
-
-
-
 }

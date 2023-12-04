@@ -60,7 +60,7 @@ class ListRumActivity : AppCompatActivity() {
 
 
                     }
-//                    binding.rumList.adapter = rumAdapt(rumArrayList)
+//                  binding.rumList.adapter = rumAdapt(rumArrayList)
                     binding.rumList.adapter?.notifyDataSetChanged()
                     val mAdapter = rumAdapt(rumArrayList)
                     recyclerViewRumah.adapter = mAdapter
@@ -68,8 +68,7 @@ class ListRumActivity : AppCompatActivity() {
                     mAdapter.setOnItemClickListener(object : rumAdapt.onItemClickListener {
                         override fun onItemClick(position: Int) {
 
-                            val intent =
-                                Intent(this@ListRumActivity, detailRumahActivity::class.java)
+                            val intent = Intent(this@ListRumActivity, detailRumahActivity::class.java)
 
                             intent.putExtra("idRumah", rumArrayList[position].idRumah)
                             intent.putExtra("namaRumah", rumArrayList[position].namaRumah)

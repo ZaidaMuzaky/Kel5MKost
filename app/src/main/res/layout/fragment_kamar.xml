@@ -21,36 +21,67 @@
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/kamarlist" />
 
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/spinner_filnamarumah"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:hint="Kamar dari Rumah"-->
+<!--        android:orientation="vertical"-->
+<!--        android:contentDescription="pilih rumah"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@id/listKamar">-->
+
+<!--        <androidx.appcompat.widget.AppCompatAutoCompleteTextView-->
+<!--            android:id="@+id/fil_namarumah"-->
+<!--            android:layout_width="284dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:clickable="true"-->
+<!--            android:contentDescription="pilih rumah"-->
+<!--            tools:ignore="KeyboardInaccessibleWidget" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnRefresh"-->
+<!--            android:layout_width="48dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:drawableLeft="@drawable/baseline_search_24" -->
+<!--            en/>-->
+
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinner_filnamarumah"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="52dp"
         android:hint="Kamar dari Rumah"
         android:orientation="vertical"
-        android:contentDescription="pilih rumah"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/listKamar">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.75">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/fil_namarumah"
-            android:layout_width="284dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:contentDescription="pilih rumah"
-            tools:ignore="KeyboardInaccessibleWidget" />
-
-        <Button
-            android:id="@+id/btnRefresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:clickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/btnRefresh"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_search_24"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner_filnamarumah"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinner_filnamarumah"
+        app:layout_constraintTop_toTopOf="@+id/spinner_filnamarumah" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatAddKamar"
         android:layout_width="wrap_content"

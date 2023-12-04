@@ -14,7 +14,7 @@ import com.ptikel5.makkost.datacl.KamarCl
 public class kamarRepo( val passfilter: String = "Rumah ABC") {
 
 
-    val databaseReference : DatabaseReference = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah").child(passfilter).child("kamar")
+    val databaseReference : DatabaseReference = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("kamar").child(passfilter)
 
 
     @Volatile private var INSTANCE : kamarRepo ?= null
