@@ -36,9 +36,9 @@ class detailRumahActivity : AppCompatActivity() {
         }
     }
 
-    private fun deletedata(namaRumah: String) {
+    private fun deletedata(idRumah: String) {
         database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
-        database.child(namaRumah).removeValue().addOnSuccessListener {
+        database.child(idRumah).removeValue().addOnSuccessListener {
             val intent = Intent(this, ListRumActivity::class.java)
             startActivity(intent)
             Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
@@ -98,7 +98,7 @@ class detailRumahActivity : AppCompatActivity() {
             "namaRumah" to namaRumah,
             "alamatRumah" to alamatRumah
         )
-       database.child(namaRumah).updateChildren(rumahin).addOnSuccessListener {
+       database.child(idRumah).updateChildren(rumahin).addOnSuccessListener {
            Toast.makeText(this, "berhasil edit", Toast.LENGTH_SHORT).show()
        }
            .addOnFailureListener {

@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.ptikel5.makkost.KamarFragment
-import com.ptikel5.makkost.PengaturanFragment
 import com.ptikel5.makkost.databinding.ActivityTambahKamarBinding
 import com.ptikel5.makkost.datacl.KamarCl
 
@@ -21,13 +20,15 @@ import com.ptikel5.makkost.datacl.KamarCl
 class TambahKamarActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTambahKamarBinding
     private lateinit var database: DatabaseReference
+    private lateinit var databaseSpinner: DatabaseReference
     private  val namaRumah: List<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityTambahKamarBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("kamar")
+        databaseSpinner = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
 
         // button form
         binding.smpKamar.setOnClickListener {
@@ -43,10 +44,11 @@ class TambahKamarActivity : AppCompatActivity() {
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         binding.inpRumah.setAdapter(dataAdapter)
 
-        database.addValueEventListener(object : ValueEventListener{
+        databaseSpinner.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataAdapter.clear()
                 for (ds in snapshot.children) {
+                    val idRumahIDT = ds.child("idRumah").value.toString()
                     val name = ds.child("namaRumah").value.toString()
                     dataAdapter.add(name)
                 }
@@ -70,7 +72,7 @@ class TambahKamarActivity : AppCompatActivity() {
         val statusKamar = binding.inpStatus.text.toString()
 
         val dataKamar = KamarCl(idKamar,idRumah, noKamar, biayaKamar, fasilitasKamar, statusKamar)
-        database.child(idRumah).child("kamar").child(noKamar).setValue(dataKamar).addOnCompleteListener {
+        database.child(idRumah).child(idKamar).setValue(dataKamar).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahkan Data Kamar", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, KamarFragment::class.java)
             startActivity(intent)

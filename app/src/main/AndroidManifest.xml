@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MakKost"
         tools:targetApi="31">
         <activity
+            android:name=".Act.tambahPenyewaActivity"
+            android:exported="false" />
+        <activity
             android:name=".Act.detailKamarActivity"
             android:exported="false" />
         <activity

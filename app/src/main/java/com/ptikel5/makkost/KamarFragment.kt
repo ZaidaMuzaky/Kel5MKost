@@ -89,7 +89,9 @@ class KamarFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataAdapter.clear()
                 for (ds in snapshot.children) {
+                    val idRumah = ds.child("idRumah").value.toString()
                     val name = ds.child("namaRumah").value.toString()
+//                    refreshKamarData(idRumah)
                     dataAdapter.add(name)
                 }
             }
@@ -116,13 +118,24 @@ class KamarFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 val intent = Intent(requireActivity(), detailKamarActivity::class.java)
 
-                intent.putExtra("idKamar", kamarArrayList[position].idKamar)
-                intent.putExtra("idRumah", kamarArrayList[position].idRumah)
-                intent.putExtra("noKamar", kamarArrayList[position].noKamar)
-                intent.putExtra("fasilitasKamar", kamarArrayList[position].fasilitasKamar)
-                intent.putExtra("statusKamar", kamarArrayList[position].statusKamar)
+//                intent.putExtra("idKamar", kamarArrayList[position].idKamar)
+//                intent.putExtra("idRumah", kamarArrayList[position].idRumah)
+//                intent.putExtra("noKamar", kamarArrayList[position].noKamar)
+//                intent.putExtra("fasilitasKamar", kamarArrayList[position].fasilitasKamar)
+//                intent.putExtra("statusKamar", kamarArrayList[position].statusKamar)
+//
+//                startActivity(intent)
+                val selectedKamar = viewModel.allKamar.value?.get(position)
 
-                startActivity(intent)
+                selectedKamar?.let {
+                    intent.putExtra("idKamar", it.idKamar)
+                    intent.putExtra("idRumah", it.idRumah)
+                    intent.putExtra("noKamar", it.noKamar)
+                    intent.putExtra("biayaKamar", it.biayaKamar)
+                    intent.putExtra("fasilitasKamar", it.fasilitasKamar)
+                    intent.putExtra("statusKamar", it.statusKamar)
+                    startActivity(intent)
+                }
             }
 
         })
