@@ -13,7 +13,7 @@ import com.ptikel5.makkost.datacl.PenyewaCL
 
 public class penyewaRepo {
     val databaseReference: DatabaseReference =
-        FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("penyewa")
+        FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Penyewa")
 
     @Volatile private var INSTANCE : penyewaRepo ?= null
     fun getInstance() : penyewaRepo{

@@ -8,11 +8,12 @@ import com.ptikel5.makkost.datacl.PenyewaCL
 import com.ptikel5.makkost.repository.penyewaRepo
 
 class penyewaViewModel : ViewModel() {
-    private val repository: penyewaRepo = penyewaRepo()
+    private var repository: penyewaRepo = penyewaRepo()
     private val _allPenyewa = MutableLiveData<List<PenyewaCL>>()
     val allPenyewa: MutableLiveData<List<PenyewaCL>> = _allPenyewa
 
     init {
+        repository = penyewaRepo().getInstance()
         repository.loadPenyewa(_allPenyewa)
     }
 }

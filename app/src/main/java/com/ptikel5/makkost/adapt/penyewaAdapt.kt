@@ -40,18 +40,17 @@ class penyewaAdapt(): RecyclerView.Adapter<penyewaAdapt.MyViewHolder>() {
         holder.statusPenyewa.text = currentitem.statusPenyewa
 
     }
-    fun updatePenyewalist(kamarlist: List<PenyewaCL>) {
+    fun updatePenyewalist(penyewalist: List<PenyewaCL>) {
 
         this.penyewaList.clear()
-        this.penyewaList.addAll(penyewaList)
+        this.penyewaList.addAll(penyewalist)
         notifyDataSetChanged()
 
     }
-    class MyViewHolder(itemView: View, clickListener: onItemClickListener) :
-        RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
 
         val namaPenyewa: TextView = itemView.findViewById(R.id.tv_namaPenyewa)
-        val noHPPenyewa: TextView = itemView.findViewById(R.id.tv_noHPPenyewa)
+        val noHPPenyewa: TextView = itemView.findViewById(R.id.tv_nohpPenyewa)
         val statusPenyewa: TextView = itemView.findViewById(R.id.tv_statusPenyewa)
 
         init {
@@ -59,7 +58,6 @@ class penyewaAdapt(): RecyclerView.Adapter<penyewaAdapt.MyViewHolder>() {
                 clickListener.onItemClick(adapterPosition)
             }
         }
-
 
     }
 

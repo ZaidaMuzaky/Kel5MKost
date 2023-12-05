@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.ptikel5.makkost.Act.TambahKamarActivity
+import com.ptikel5.makkost.Act.detailKamarActivity
 import com.ptikel5.makkost.Act.tambahPenyewaActivity
 import com.ptikel5.makkost.adapt.kamAdapt
 import com.ptikel5.makkost.adapt.penyewaAdapt
@@ -50,7 +51,7 @@ class PenyewaFragment : Fragment() {
         }
 
         // recyclerview
-        recyclerViewPenyewa = binding.listKamar
+        recyclerViewPenyewa = binding.penyewalist
         recyclerViewPenyewa.layoutManager = LinearLayoutManager(context)
         recyclerViewPenyewa.setHasFixedSize(true)
         adapter = penyewaAdapt()
@@ -62,7 +63,24 @@ class PenyewaFragment : Fragment() {
             adapter.updatePenyewalist(it)
 
         })
+        adapter.setOnItemClickListener(object : penyewaAdapt.onItemClickListener{
+            override fun onItemClick(position: Int) {
+                val intent = Intent(requireActivity(), detailKamarActivity::class.java)
+                val selectedKamar = viewModel.allPenyewa.value?.get(position)
 
+                selectedKamar?.let {
+                    intent.putExtra("idPenyewa", it.idPenyewa)
+                    intent.putExtra("namaPenyewa", it.namaPenyewa)
+                    intent.putExtra("alamatPenyewa", it.alamatPenyewa)
+                    intent.putExtra("noHPPenyewa", it.noHPPenyewa)
+                    intent.putExtra("pekerjaanPenyewa", it.pekerjaanPenyewa)
+                    intent.putExtra("emailPenyewa", it.emailPenyewa)
+                    intent.putExtra("statusPenyewa", it.statusPenyewa)
+                    startActivity(intent)
+                }
+            }
+
+        })
         return binding.root
     }
 
