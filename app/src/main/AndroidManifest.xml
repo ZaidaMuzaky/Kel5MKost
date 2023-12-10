@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MakKost"
         tools:targetApi="31">
         <activity
+            android:name=".Act.tambahTransaksiActivity"
+            android:exported="false" />
+        <activity
             android:name=".Act.detailPenyewaActivity"
             android:exported="false" />
         <activity

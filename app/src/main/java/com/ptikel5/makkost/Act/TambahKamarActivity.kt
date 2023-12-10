@@ -3,9 +3,11 @@ package com.ptikel5.makkost.Act
 import android.R
 import android.R.layout.simple_spinner_item
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.ptikel5.makkost.KamarFragment
 import com.ptikel5.makkost.databinding.ActivityTambahKamarBinding
 import com.ptikel5.makkost.datacl.KamarCl
@@ -26,6 +30,7 @@ class TambahKamarActivity : AppCompatActivity() {
     private lateinit var databaseSpinner: DatabaseReference
     private  val namaRumah: List<String> = ArrayList()
     private var selectedRumahId: String = ""
+    var fileUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityTambahKamarBinding.inflate(layoutInflater)
@@ -54,9 +59,15 @@ class TambahKamarActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.uploadGambar.setOnClickListener {
+//        binding.inpFotokamar.setOnClickListener {
+//            val intent = Intent()
+//            intent.type = "image/*"
+//            intent.action = Intent.ACTION_GET_CONTENT
+//            startActivityForResult(
+//                Intent.createChooser(intent, "Choose Image to Upload"), 0
+//            )
+//        }
 
-        }
 
         // spinner nama rumah
         val dataAdapter = ArrayAdapter<String>(this, simple_spinner_item, namaRumah)
@@ -90,6 +101,8 @@ class TambahKamarActivity : AppCompatActivity() {
         val fasilitasKamar = binding.inpFasilitas.text.toString()
         val statusKamar = binding.inpStatus.text.toString()
 
+//        uploadImage(idKamar, idRumah)
+
         val dataKamar = KamarCl(idKamar,idRumah, noKamar, biayaKamar, fasilitasKamar, statusKamar)
         database.child(idRumah).child(idKamar).setValue(dataKamar).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahkan Data Kamar", Toast.LENGTH_SHORT).show()
@@ -100,6 +113,24 @@ class TambahKamarActivity : AppCompatActivity() {
         }
     }
 
+//    fun uploadImage(idrumah: String, idkamar: String) {
+//        if (fileUri != null) {
+//            val userid = FirebaseAuth.getInstance().currentUser?.uid
+//            val ref: StorageReference = userid?.let {
+//                FirebaseStorage.getInstance().getReference(it)
+//                    .child("kamar").child(idrumah).child(idkamar)
+//            }!!
+//            ref.putFile(fileUri!!).addOnSuccessListener {
+//                Toast.makeText(applicationContext, "File Uploaded Successfully", Toast.LENGTH_LONG)
+//                    .show()
+//            }.addOnFailureListener {
+//                Toast.makeText(applicationContext, "File Upload Failed...", Toast.LENGTH_LONG)
+//                    .show()
+//            }
+//        }
+//    }
+
+
     private fun InputStatus(): ArrayList<String> {
         val status = ArrayList<String>()
         status.add("Kosong")
@@ -108,4 +139,17 @@ class TambahKamarActivity : AppCompatActivity() {
 
         return status
     }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == 0 && resultCode == RESULT_OK && data != null && data.data != null) {
+//            fileUri = data.data
+//            try {
+//                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileUri)
+//                binding.uploadGambar.setImageBitmap(bitmap)
+//
+//            } catch (e: Exception) {
+//                Log.e("Exception", "Error: " + e)
+//            }
+//        }
+//    }
 }

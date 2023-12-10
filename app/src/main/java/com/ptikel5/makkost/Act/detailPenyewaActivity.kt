@@ -3,6 +3,7 @@ package com.ptikel5.makkost.Act
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
@@ -80,6 +81,10 @@ class detailPenyewaActivity : AppCompatActivity() {
         val edstatusPenyewa = mDialogView.findViewById<AutoCompleteTextView>(R.id.upd_statusPenyewa)
         val btnupdatePenyewa = mDialogView.findViewById<Button>(R.id.update_Penyewa)
 
+        val statusPenyewaInput: ArrayList<String> = InputStatusPenyewa()
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusPenyewaInput)
+        edstatusPenyewa.setAdapter(adapter)
+
         ednamaPenyewa.setText(intent.getStringExtra("namaPenyewa").toString())
         edalamatPenyewa.setText(intent.getStringExtra("alamatPenyewa").toString())
         ednoHpPenyewa.setText(intent.getStringExtra("noHPPenyewa").toString())
@@ -125,7 +130,7 @@ class detailPenyewaActivity : AppCompatActivity() {
         database = userid?.let {
             FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
                 it
-            ).child("Penyewa").child(idPenyewa)
+            ).child("Penyewa")
         }!!
         val penyewain = mapOf<String, String>(
             "namaPenyewa" to namaPenyewa,
@@ -138,10 +143,18 @@ class detailPenyewaActivity : AppCompatActivity() {
         )
         database.child(idPenyewa).updateChildren(penyewain).addOnCompleteListener {
             Toast.makeText(this, "berhasil edit", Toast.LENGTH_SHORT).show()
+            finish()
         }
             .addOnFailureListener {
                 Toast.makeText(this, "gagal edit", Toast.LENGTH_SHORT).show()
             }
+    }
+    private fun InputStatusPenyewa(): ArrayList<String> {
+        val status = ArrayList<String>()
+        status.add("Aktif")
+        status.add("Tidak Aktif")
+
+        return status
     }
     private fun initView() {
         binding.tvDtIdPenyewa.text = intent.getStringExtra("idPenyewa")

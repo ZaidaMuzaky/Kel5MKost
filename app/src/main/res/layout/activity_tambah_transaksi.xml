@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Act.tambahTransaksiActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textJD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32sp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/f1"
+        android:text="Input Data Kamar"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_Rumahtrx"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="Rumah Kamar"
+        android:hint="Pilih Rumah"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textJD">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/inp_Rumahtrx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="Rumah Kamar"
+            tools:ignore="KeyboardInaccessibleWidget" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_Kamartrx"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="Rumah Kamar"
+        android:hint="Pilih Kamar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Rumahtrx">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/inp_kamartrx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="Rumah Kamar"
+            tools:ignore="KeyboardInaccessibleWidget" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinner_penyewatrx"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:contentDescription="Rumah Kamar"
+        android:hint="Pilih Penyewa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_Kamartrx">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/inp_penyewatrx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="Rumah Kamar"
+            tools:ignore="KeyboardInaccessibleWidget" />
+    </com.google.android.material.textfield.TextInputLayout>
+    
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tmb_tanggalmasuk"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290sp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Tanggal Masuk"
+        app:layout_constraintEnd_toStartOf="@id/btndate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_penyewatrx">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inp_tanggalmasuk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btndate"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_date_range_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tmb_tanggalmasuk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tmb_tanggalmasuk"
+        app:layout_constraintTop_toTopOf="@+id/tmb_tanggalmasuk" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tmb_tanggalkeluar"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290sp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Tanggal Keluar"
+        app:layout_constraintEnd_toStartOf="@id/btndate1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tmb_tanggalmasuk">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inp_tanggalkeluar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btndate1"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_date_range_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tmb_tanggalkeluar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tmb_tanggalkeluar"
+        app:layout_constraintTop_toTopOf="@+id/tmb_tanggalkeluar" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tmb_jadwalbayar"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="290sp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Jadwal Bayar"
+        app:layout_constraintEnd_toStartOf="@id/btndate2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tmb_tanggalkeluar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inp_jadwalbayar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btndate2"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/baseline_date_range_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tmb_jadwalbayar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tmb_jadwalbayar"
+        app:layout_constraintTop_toTopOf="@+id/tmb_jadwalbayar" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tmb_jumlahbayartrx"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="61dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="Jumlah Bayar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tmb_jadwalbayar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inp_jumlahbayartrx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/smp_transaksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32sp"
+            android:backgroundTint="@color/teal_700"
+            android:text="simpan"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/tmb_jumlahbayartrx"
+            app:layout_constraintTop_toBottomOf="@+id/tmb_jumlahbayartrx" />
+
+        <Button
+            android:id="@+id/btl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32sp"
+            android:backgroundTint="@color/red"
+            android:text="Batal"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tmb_jumlahbayartrx"
+            app:layout_constraintTop_toBottomOf="@+id/tmb_jumlahbayartrx" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</ScrollView>
