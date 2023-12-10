@@ -3,13 +3,18 @@ package com.ptikel5.makkost.Act
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.ptikel5.makkost.KamarFragment
 import com.ptikel5.makkost.R
 import com.ptikel5.makkost.databinding.ActivityDetailKamarBinding
@@ -19,6 +24,8 @@ import com.ptikel5.makkost.databinding.ActivityTambahKamarBinding
 class detailKamarActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailKamarBinding
     private lateinit var database: DatabaseReference
+    private lateinit var databaseSpinner : DatabaseReference
+    private  val namaRumah: List<String> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityDetailKamarBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -41,12 +48,15 @@ class detailKamarActivity : AppCompatActivity() {
 
     }
     private fun deletedata(idRumah: String, idKamar: String) {
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("kamar")
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("kamar")
+        }!!
         database.child(idRumah).child(idKamar).removeValue().addOnSuccessListener {
-            val intent = Intent(this, KamarFragment::class.java)
-            startActivity(intent)
             Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
-            onDestroy()
+            finish()
         }.addOnFailureListener {
             Toast.makeText(this, "gagal hapus", Toast.LENGTH_SHORT).show()
         }
@@ -59,6 +69,14 @@ class detailKamarActivity : AppCompatActivity() {
         biayaKamar : String,
         fasilitasKamar : String,
         statusKamar : String) {
+
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        databaseSpinner = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("rumah")
+        }!!
+
 
         val mDialog = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -73,13 +91,39 @@ class detailKamarActivity : AppCompatActivity() {
         val edStatusKamar = mDialogView.findViewById<AutoCompleteTextView>(R.id.upd_statusKamar)
         val btnUpdateKamar = mDialogView.findViewById<Button>(R.id.update_kamar)
 
+
+
         edNoKamar.setText(intent.getStringExtra("noKamar").toString())
         edNamaRumah.setText(intent.getStringExtra("idRumah").toString())
         edBiayaKamar.setText(intent.getStringExtra("biayaKamar").toString())
         edFasilitasKamar.setText(intent.getStringExtra("fasilitasKamar").toString())
         edStatusKamar.setText(intent.getStringExtra("statusKamar").toString())
 
-        mDialog.setTitle("sedang update data")
+
+        // spinner nama rumah
+        val dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, namaRumah)
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        edNamaRumah.setAdapter(dataAdapter)
+
+        databaseSpinner.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataAdapter.clear()
+                for (ds in snapshot.children) {
+//                    val idRumah = ds.child("idRumah").value.toString()
+                    val name = ds.child("namaRumah").value.toString()
+                    dataAdapter.add(name)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
+        // spinner status
+        val statusinput: ArrayList<String> = InputStatus()
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusinput)
+        edStatusKamar.setAdapter(adapter)
+
+    mDialog.setTitle("sedang update data")
 
         val alertDialog = mDialog.create()
         alertDialog.show()
@@ -102,6 +146,14 @@ class detailKamarActivity : AppCompatActivity() {
             alertDialog.dismiss()
         }
     }
+    private fun InputStatus(): ArrayList<String> {
+        val status = ArrayList<String>()
+        status.add("Kosong")
+        status.add("Terisi")
+        status.add("Perbaikan")
+
+        return status
+    }
 
     private fun updateKamarData(
         idKamar: String,
@@ -111,7 +163,12 @@ class detailKamarActivity : AppCompatActivity() {
         fasilitasKamar: String,
         statusKamar: String
     ) {
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("kamar").child(idRumah)
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("kamar").child(idRumah)
+        }!!
         val kamarin = mapOf<String, String>(
             "noKamar" to noKamar,
             "idRumah" to idRumah,
@@ -122,6 +179,7 @@ class detailKamarActivity : AppCompatActivity() {
         )
         database.child(idKamar).updateChildren(kamarin).addOnSuccessListener {
             Toast.makeText(this, "berhasil edit", Toast.LENGTH_SHORT).show()
+            finish()
         }
             .addOnFailureListener {
                 Toast.makeText(this, "gagal edit", Toast.LENGTH_SHORT).show()

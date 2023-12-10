@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.ptikel5.makkost.PengaturanFragment
 import com.ptikel5.makkost.databinding.ActivityRumahBinding
 import com.ptikel5.makkost.datacl.Rumah
@@ -20,7 +21,12 @@ class RumahActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        database = user?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            )
+        }!!
 
 
         binding.smpRumah.setOnClickListener {
@@ -38,10 +44,9 @@ class RumahActivity : AppCompatActivity() {
         val alamatRumah = binding.inpAlamat.text.toString()
 
         val dataRumah = Rumah(idRumah, namaRumah, alamatRumah)
-        database.child(idRumah).setValue(dataRumah).addOnCompleteListener {
+        database.child("rumah").child(idRumah).setValue(dataRumah).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahakan data rumah", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, PengaturanFragment::class.java)
-            startActivity(intent)
+            finish()
         }.addOnFailureListener {
             Toast.makeText(this, "Gagal Menambahkan data rumah", Toast.LENGTH_SHORT).show()
         }

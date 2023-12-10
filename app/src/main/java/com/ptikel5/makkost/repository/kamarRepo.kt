@@ -3,6 +3,7 @@ package com.ptikel5.makkost.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -14,7 +15,12 @@ import com.ptikel5.makkost.datacl.KamarCl
 public class kamarRepo( val passfilter: String = "Rumah ABC") {
 
 
-    val databaseReference : DatabaseReference = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("kamar").child(passfilter)
+    val userid = FirebaseAuth.getInstance().currentUser?.uid
+    val databaseReference : DatabaseReference = userid?.let {
+        FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+            it
+        ).child("kamar").child(passfilter)
+    }!!
 
 
     @Volatile private var INSTANCE : kamarRepo ?= null

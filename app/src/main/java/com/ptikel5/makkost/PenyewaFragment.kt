@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.ptikel5.makkost.Act.TambahKamarActivity
 import com.ptikel5.makkost.Act.detailKamarActivity
+import com.ptikel5.makkost.Act.detailPenyewaActivity
 import com.ptikel5.makkost.Act.tambahPenyewaActivity
 import com.ptikel5.makkost.adapt.kamAdapt
 import com.ptikel5.makkost.adapt.penyewaAdapt
@@ -65,7 +66,7 @@ class PenyewaFragment : Fragment() {
         })
         adapter.setOnItemClickListener(object : penyewaAdapt.onItemClickListener{
             override fun onItemClick(position: Int) {
-                val intent = Intent(requireActivity(), detailKamarActivity::class.java)
+                val intent = Intent(requireActivity(), detailPenyewaActivity::class.java)
                 val selectedKamar = viewModel.allPenyewa.value?.get(position)
 
                 selectedKamar?.let {

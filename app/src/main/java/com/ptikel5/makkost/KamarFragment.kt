@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -66,7 +67,12 @@ class KamarFragment : Fragment() {
 
 
         // filtering
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("rumah")
+        }!!
 
         val dataAdapter = ArrayAdapter<String>(requireContext(), R.layout.simple_spinner_item, namaRumah)
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)

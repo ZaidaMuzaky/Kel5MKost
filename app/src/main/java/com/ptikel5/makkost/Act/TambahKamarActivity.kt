@@ -4,9 +4,12 @@ import android.R
 import android.R.layout.simple_spinner_item
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -22,13 +25,25 @@ class TambahKamarActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var databaseSpinner: DatabaseReference
     private  val namaRumah: List<String> = ArrayList()
+    private var selectedRumahId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityTambahKamarBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("kamar")
-        databaseSpinner = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("kamar")
+        }!!
+        databaseSpinner = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("rumah")
+        }!!
 
         // button form
         binding.smpKamar.setOnClickListener {
@@ -37,6 +52,10 @@ class TambahKamarActivity : AppCompatActivity() {
 
         binding.btl.setOnClickListener {
             finish()
+        }
+
+        binding.uploadGambar.setOnClickListener {
+
         }
 
         // spinner nama rumah
@@ -48,7 +67,7 @@ class TambahKamarActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataAdapter.clear()
                 for (ds in snapshot.children) {
-//                    val idRumahIDT = ds.child("idRumah").value.toString()
+//                    val idRumah = ds.child("idRumah").value.toString()
                     val name = ds.child("namaRumah").value.toString()
                     dataAdapter.add(name)
                 }
@@ -75,7 +94,7 @@ class TambahKamarActivity : AppCompatActivity() {
         database.child(idRumah).child(idKamar).setValue(dataKamar).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahkan Data Kamar", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, KamarFragment::class.java)
-            startActivity(intent)
+            finish()
         }.addOnFailureListener {
             Toast.makeText(this, "Gagal Menambahkan data Kamar", Toast.LENGTH_SHORT).show()
         }

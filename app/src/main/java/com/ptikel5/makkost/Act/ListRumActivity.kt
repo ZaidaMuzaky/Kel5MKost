@@ -41,8 +41,14 @@ class ListRumActivity : AppCompatActivity() {
     }
 
     private fun getdatarum() {
+
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
         dbref =
-            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+            userid?.let {
+                FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                    it
+                ).child("rumah")
+            }!!
 
         dbref.addValueEventListener(object : ValueEventListener {
 

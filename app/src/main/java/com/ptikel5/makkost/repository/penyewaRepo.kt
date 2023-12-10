@@ -2,6 +2,7 @@ package com.ptikel5.makkost.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -12,8 +13,13 @@ import com.ptikel5.makkost.datacl.KamarCl
 import com.ptikel5.makkost.datacl.PenyewaCL
 
 public class penyewaRepo {
+    val userid = FirebaseAuth.getInstance().currentUser?.uid
     val databaseReference: DatabaseReference =
-        FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Penyewa")
+        userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("penyewa")
+        }!!
 
     @Volatile private var INSTANCE : penyewaRepo ?= null
     fun getInstance() : penyewaRepo{

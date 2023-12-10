@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ptikel5.makkost.PengaturanFragment
@@ -22,7 +23,12 @@ class tambahPenyewaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("penyewa")
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("penyewa")
+        }!!
 
         binding.smpPenyewa.setOnClickListener {
             simpandata()
@@ -48,8 +54,7 @@ class tambahPenyewaActivity : AppCompatActivity() {
         val dataPenyewa = PenyewaCL(idPenyewa, namaPenyewa, alamatPenyewa, noHPPenyewa, pekerjaanPenyewa, emailPenyewa, statusPenyewa)
         database.child(idPenyewa).setValue(dataPenyewa).addOnCompleteListener {
             Toast.makeText(this, "Berhasil Menambahakan data Penyewa", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, PengaturanFragment::class.java)
-            startActivity(intent)
+            finish()
         }.addOnFailureListener {
             Toast.makeText(this, "Gagal Menambahkan data Penyewa", Toast.LENGTH_SHORT).show()
         }

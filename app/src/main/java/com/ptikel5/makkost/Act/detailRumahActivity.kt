@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.ptikel5.makkost.R
@@ -32,17 +33,20 @@ class detailRumahActivity : AppCompatActivity() {
             )
         }
         binding.btnDelete.setOnClickListener {
-            deletedata(intent.getStringExtra("namaRumah").toString())
+            deletedata(intent.getStringExtra("idRumah").toString())
         }
     }
 
     private fun deletedata(idRumah: String) {
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("rumah")
+        }!!
         database.child(idRumah).removeValue().addOnSuccessListener {
-            val intent = Intent(this, ListRumActivity::class.java)
-            startActivity(intent)
             Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
-            onDestroy()
+            finish()
         }.addOnFailureListener {
             Toast.makeText(this, "gagal hapus", Toast.LENGTH_SHORT).show()
         }
@@ -93,13 +97,19 @@ class detailRumahActivity : AppCompatActivity() {
         namaRumah: String,
         alamatRumah: String
     ) {
-        database = FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("rumah")
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("rumah")
+        }!!
         val rumahin = mapOf<String,String>(
             "namaRumah" to namaRumah,
             "alamatRumah" to alamatRumah
         )
        database.child(idRumah).updateChildren(rumahin).addOnSuccessListener {
            Toast.makeText(this, "berhasil edit", Toast.LENGTH_SHORT).show()
+           finish()
        }
            .addOnFailureListener {
                Toast.makeText(this, "gagal edit", Toast.LENGTH_SHORT).show()
