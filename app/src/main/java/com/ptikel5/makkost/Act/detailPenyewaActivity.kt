@@ -1,6 +1,7 @@
 package com.ptikel5.makkost.Act
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -39,7 +40,25 @@ class detailPenyewaActivity : AppCompatActivity() {
         binding.btnDelete.setOnClickListener {
             deletedata(intent.getStringExtra("idPenyewa").toString())
         }
+        binding.btnWa.setOnClickListener {
+            wasap(intent.getStringExtra("noHPPenyewa").toString())
+        }
     }
+
+    private fun wasap(noHPPenyewa: String) {
+        val phoneNumber = noHPPenyewa.toString()
+        val formattedPhoneNumber = if (phoneNumber.startsWith("0")) {
+            "+62${phoneNumber.substring(1)}"
+        } else {
+            phoneNumber
+        }
+        val uri = Uri.parse("https://wa.me/$formattedPhoneNumber")
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+
+        startActivity(intent)
+
+    }
+
     private fun deletedata(idPenyewa: String,) {
         val userid = FirebaseAuth.getInstance().currentUser?.uid
         database = userid?.let {

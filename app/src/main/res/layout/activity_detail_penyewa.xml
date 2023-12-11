@@ -16,6 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout" />
 
+    <ImageButton
+        android:id="@+id/btn_wa"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/whatsapp"
+        app:layout_constraintEnd_toStartOf="@id/btnDelete"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnUpdate"
+        app:layout_constraintTop_toBottomOf="@id/btnDelete"/>
+
     <Button
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
@@ -372,4 +382,5 @@
 
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
