@@ -1,13 +1,8 @@
 package com.ptikel5.makkost.Act
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -16,10 +11,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.ptikel5.makkost.R
 import com.ptikel5.makkost.adapt.rumAdapt
 import com.ptikel5.makkost.databinding.ActivityListRumBinding
-import com.ptikel5.makkost.databinding.ActivityLoginBinding
 import com.ptikel5.makkost.datacl.Rumah
 
 class ListRumActivity : AppCompatActivity() {

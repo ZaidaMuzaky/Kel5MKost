@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 import com.ptikel5.makkost.KamarFragment
 import com.ptikel5.makkost.R
 import com.ptikel5.makkost.databinding.ActivityDetailTransaksiBinding
+import com.ptikel5.makkost.datacl.Rumah
 import com.ptikel5.makkost.datacl.historyCL
 import com.ptikel5.makkost.datacl.transaksiCL
 import java.text.SimpleDateFormat
@@ -36,11 +37,13 @@ class detailTransaksiActivity : AppCompatActivity() {
     private val namaRumah: MutableList<String> = ArrayList()
     private val namaKamar: MutableList<String> = ArrayList()
     private  val namaPenyewa: List<String> = ArrayList()
+    private lateinit var hisarraylist: ArrayList<historyCL>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityDetailTransaksiBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        var idTransaksi = intent.getStringExtra("idTransaksi").toString()
         initView()
         binding.btnUpdate.setOnClickListener {
             openUpdateDialog(
@@ -59,6 +62,7 @@ class detailTransaksiActivity : AppCompatActivity() {
         }
         binding.btnhistory.setOnClickListener {
             val intent = Intent(this, historyTranActivity::class.java)
+            intent.putExtra("idTransaksi", idTransaksi)
             startActivity(intent)
         }
     }

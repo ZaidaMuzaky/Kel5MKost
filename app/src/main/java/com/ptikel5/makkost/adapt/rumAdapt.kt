@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ptikel5.makkost.R
 import com.ptikel5.makkost.datacl.Rumah
 
-class rumAdapt(private val rumList : ArrayList<Rumah>) : RecyclerView.Adapter<rumAdapt.MyViewHolder>() {
+class rumAdapt(private val rumList: ArrayList<Rumah>) : RecyclerView.Adapter<rumAdapt.MyViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
     interface onItemClickListener{
