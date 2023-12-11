@@ -8,16 +8,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/spinner_idrumah"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Nama Rumah"
-            android:contentDescription="Status Kamar">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="Status Kamar"
+            android:hint="Nama Rumah">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/upd_idrumahtrx"
@@ -27,16 +28,17 @@
                 android:contentDescription="Status Penyewa"
                 tools:ignore="KeyboardInaccessibleWidget" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/spinner_noKamartrx"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:hint="No Kamar"
-            android:contentDescription="Status Kamar">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="Status Kamar"
+            android:hint="No Kamar">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/upd_nokamartrx"
@@ -46,16 +48,17 @@
                 android:contentDescription="Status Penyewa"
                 tools:ignore="KeyboardInaccessibleWidget" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/spinner_idpenyewa"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Nama Penyewa"
-            android:contentDescription="Status Kamar">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="Status Kamar"
+            android:hint="Nama Penyewa">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/upd_namapenyewatrx"
@@ -65,27 +68,26 @@
                 android:contentDescription="Status Penyewa"
                 tools:ignore="KeyboardInaccessibleWidget" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28sp">
+            android:layout_marginTop="24sp">
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tmb_tanggalmasuk"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="290sp"
+                android:layout_width="192sp"
                 android:layout_height="61dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="24dp"
                 android:hint="Tanggal Masuk"
-                app:layout_constraintEnd_toStartOf="@id/spinner_idpenyewa"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner_idpenyewa">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inp_tanggalmasuk"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -95,7 +97,6 @@
                 android:drawableLeft="@drawable/baseline_date_range_24"
                 app:layout_constraintBottom_toBottomOf="@+id/tmb_tanggalmasuk"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.926"
                 app:layout_constraintStart_toEndOf="@+id/tmb_tanggalmasuk"
                 app:layout_constraintTop_toTopOf="@+id/tmb_tanggalmasuk"
                 app:layout_constraintVertical_bias="1.0" />
@@ -103,13 +104,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tmb_tanggalkeluar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="290sp"
+                android:layout_width="192sp"
                 android:layout_height="61dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:hint="Tanggal Keluar"
-                app:layout_constraintEnd_toStartOf="@id/btndate1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tmb_tanggalmasuk">
 
@@ -133,13 +132,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tmb_jadwalbayar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="290sp"
+                android:layout_width="192sp"
                 android:layout_height="61dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
                 android:hint="Jadwal Bayar"
-                app:layout_constraintEnd_toStartOf="@id/btndate2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tmb_tanggalkeluar">
 
@@ -156,28 +154,31 @@
                 android:drawableLeft="@drawable/baseline_date_range_24"
                 app:layout_constraintBottom_toBottomOf="@+id/tmb_jadwalbayar"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toEndOf="@+id/tmb_jadwalbayar"
                 app:layout_constraintTop_toTopOf="@+id/tmb_jadwalbayar"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <EditText
             android:id="@+id/upd_totalBayar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
             android:hint="Total Bayar" />
+
         <Button
             android:id="@+id/update_transaksi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="32sp"
-            android:layout_marginRight="32sp"
-            android:textColor="@color/white"
+            android:layout_marginTop="24sp"
+            android:layout_marginRight="24sp"
             android:backgroundTint="@color/teal_700"
-            android:text="Update"/>
+            android:text="Update"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
