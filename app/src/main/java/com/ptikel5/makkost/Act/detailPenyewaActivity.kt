@@ -48,10 +48,8 @@ class detailPenyewaActivity : AppCompatActivity() {
             ).child("penyewa")
         }!!
         database.child(idPenyewa).removeValue().addOnSuccessListener {
-            val intent = Intent(this, KamarFragment::class.java)
-            startActivity(intent)
             Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
-            onDestroy()
+            finish()
         }.addOnFailureListener {
             Toast.makeText(this, "gagal hapus", Toast.LENGTH_SHORT).show()
         }

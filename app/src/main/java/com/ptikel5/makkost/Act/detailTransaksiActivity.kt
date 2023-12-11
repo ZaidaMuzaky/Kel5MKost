@@ -1,5 +1,6 @@
 package com.ptikel5.makkost.Act
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -16,8 +17,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.ptikel5.makkost.KamarFragment
 import com.ptikel5.makkost.R
 import com.ptikel5.makkost.databinding.ActivityDetailTransaksiBinding
+import com.ptikel5.makkost.datacl.historyCL
+import com.ptikel5.makkost.datacl.transaksiCL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -25,6 +29,7 @@ import java.util.Locale
 class detailTransaksiActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailTransaksiBinding
     private lateinit var database: DatabaseReference
+    private lateinit var databasehis: DatabaseReference
     private lateinit var databasespinnerRumah : DatabaseReference
     private lateinit var databasespinnerKamar : DatabaseReference
     private lateinit var databasespinnerPenyewa : DatabaseReference
@@ -48,6 +53,28 @@ class detailTransaksiActivity : AppCompatActivity() {
                 intent.getStringExtra("jadwalBayar").toString(),
                 intent.getStringExtra("totalBayar").toString()
             )
+        }
+        binding.btnDelete.setOnClickListener {
+            deletedata(intent.getStringExtra("idTransaski").toString())
+        }
+        binding.btnhistory.setOnClickListener {
+            val intent = Intent(this, historyTranActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun deletedata(idTransaksi: String) {
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        database = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                it
+            ).child("transaksi")
+        }!!
+        database.child(idTransaksi).removeValue().addOnSuccessListener {
+            Toast.makeText(this, "berhasil hapus", Toast.LENGTH_SHORT).show()
+            finish()
+        }.addOnFailureListener {
+            Toast.makeText(this, "gagal hapus", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -79,6 +106,7 @@ class detailTransaksiActivity : AppCompatActivity() {
         val btndate = mDialogView.findViewById<Button>(R.id.btndate)
         val btndate1 = mDialogView.findViewById<Button>(R.id.btndate1)
         val btndate2 = mDialogView.findViewById<Button>(R.id.btndate2)
+
 
 // penggunaan date picker
         btndate.setOnClickListener {
@@ -119,12 +147,17 @@ class detailTransaksiActivity : AppCompatActivity() {
         }
 //        inisiasi database untuk spinner
         val userid = FirebaseAuth.getInstance().currentUser?.uid
-
         databasespinnerRumah = userid?.let {
             FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/")
                 .getReference(
                     it
                 ).child("rumah")
+        }!!
+        databasespinnerPenyewa = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference(
+                    it
+                ).child("penyewa")
         }!!
         //        spinner rumah
         val dataAdapter =
@@ -147,35 +180,27 @@ class detailTransaksiActivity : AppCompatActivity() {
 // inisialisasi spinner kamar
         edNamaRumah.setOnItemClickListener { _, _, position, _ ->
             val selectedRumah = namaRumah[position]
-
-            val dataAdapter1 =
-                ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, namaKamar)
-            dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            edNoKamar.setAdapter(dataAdapter1)
-            val userid = FirebaseAuth.getInstance().currentUser?.uid
-            databasespinnerKamar = userid?.let {
-                FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/")
-                    .getReference(it)
-                    .child("kamar")
-                    .child(selectedRumah)
-            }!!
-
-            databasespinnerKamar.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    namaKamar.clear()
-                    for (ds in snapshot.children) {
-                        val name = ds.child("noKamar").value.toString()
-                        namaKamar.add(name)
-                    }
-                    dataAdapter1.notifyDataSetChanged()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Handle the error
-                }
-            })
+            loadKamarData(selectedRumah)
         }
+//    spinner penyewa
+        val dataAdapter2 =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, namaPenyewa)
+        dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        edNamaPenyewa.setAdapter(dataAdapter2)
 
+        databasespinnerPenyewa.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                dataAdapter2.clear()
+                for (ds in snapshot.children) {
+                    val name = ds.child("namaPenyewa").value.toString()
+                    dataAdapter2.add(name)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+       
         edNamaRumah.setText(intent.getStringExtra("idRumah").toString())
         edNoKamar.setText(intent.getStringExtra("idKamar").toString())
         edNamaPenyewa.setText(intent.getStringExtra("idPenyewa").toString())
@@ -183,6 +208,15 @@ class detailTransaksiActivity : AppCompatActivity() {
         edtanggalkeluar.setText(intent.getStringExtra("tanggalKeluar").toString())
         edjadwalbayar.setText(intent.getStringExtra("jadwalBayar").toString())
         edtotalbayar.setText(intent.getStringExtra("totalBayar").toString())
+
+        val histidtran = intent.getStringExtra("idTransaksi").toString()
+        val histnamrumah = intent.getStringExtra("idRumah").toString()
+        val histnokamar = intent.getStringExtra("idKamar").toString()
+        val histnampenyewa = intent.getStringExtra("idPenyewa").toString()
+        val histtanggalmasuk = intent.getStringExtra("tanggalMasuk").toString()
+        val histtanggalkeluar = intent.getStringExtra("tanggalKeluar").toString()
+        val histjadwalbayar = intent.getStringExtra("jadwalBayar").toString()
+        val histtotalbayar = intent.getStringExtra("totalBayar").toString()
 
         mDialog.setTitle("sedang update data")
         val alertDialog = mDialog.create()
@@ -206,8 +240,90 @@ class detailTransaksiActivity : AppCompatActivity() {
                 jadwalBayar,
                 totalBayar
             )
+            masukhistory(
+                histidtran,
+                histnamrumah,
+                histnokamar,
+                histnampenyewa,
+                histtanggalmasuk,
+                histtanggalkeluar,
+                histjadwalbayar,
+                histtotalbayar
+            )
             alertDialog.dismiss()
         }
+    }
+
+    private fun masukhistory(  idTransaksi: String,
+                               idRumah: String,
+                               idKamar: String,
+                               idPenyewa: String,
+                               tanggalMasuk: String,
+                               tanggalKeluar: String,
+                               jadwalBayar: String,
+                               totalBayar: String) {
+        val idhistory = database.push().key!!
+        val dataTransaksi = historyCL(
+            idhistory,
+            idTransaksi,
+            idRumah,
+            idKamar,
+            idPenyewa,
+            tanggalMasuk,
+            tanggalKeluar,
+            jadwalBayar,
+            totalBayar
+        )
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        databasehis  = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference(
+                    it
+                ).child("history")
+        }!!
+        databasehis.child(idTransaksi).child(idhistory).setValue(dataTransaksi).addOnCompleteListener {
+            Toast.makeText(this, "Berhasil Menambahkan Data Transaksi", Toast.LENGTH_SHORT)
+                .show()
+            val intent = Intent(this, KamarFragment::class.java)
+
+            finish()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Gagal Menambahkan data Transaksi", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun loadKamarData(selectedRumah: String) {
+//        spinner Kamar
+        val dataAdapter1 =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, namaKamar)
+        dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val inflater = layoutInflater
+        val mDialogView = inflater.inflate(R.layout.transaksi_updatedialog, null)
+        val ednokamar = mDialogView.findViewById<AutoCompleteTextView>(R.id.upd_nokamartrx)
+        ednokamar.setAdapter(dataAdapter1)
+        val userid = FirebaseAuth.getInstance().currentUser?.uid
+        databasespinnerKamar = userid?.let {
+            FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/")
+                .getReference(it)
+                .child("kamar")
+                .child(selectedRumah)
+        }!!
+
+        databasespinnerKamar.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                namaKamar.clear()
+                for (ds in snapshot.children) {
+                    val name = ds.child("noKamar").value.toString()
+                    namaKamar.add(name)
+                }
+                dataAdapter1.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error
+            }
+        })
     }
 
     private fun updateTransaksi(
@@ -238,6 +354,11 @@ class detailTransaksiActivity : AppCompatActivity() {
             )
         database.child(idTransaksi).updateChildren(tranksaksiin).addOnCompleteListener {
             Toast.makeText(this, "berhasil edit", Toast.LENGTH_SHORT).show()
+            database = userid?.let {
+                FirebaseDatabase.getInstance("https://makkost-65394-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference(
+                    it
+                ).child("transaksi")
+            }!!
             finish()
         }
             .addOnFailureListener {
