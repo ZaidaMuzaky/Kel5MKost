@@ -7,4 +7,11 @@
     <color name="red">#CA0000</color>
     <color name="bg">#00CCCACA</color>
 
+    <color name="purple_200">#0F9D58</color>
+    <color name="purple_500">#0F9D58</color>
+    <color name="purple_700">#0F9D58</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="grey">#aaa</color>
+    <color name="button_color">#1E573B</color>
+    <color name="yellow">#FFEB3B</color>
 </resources>
