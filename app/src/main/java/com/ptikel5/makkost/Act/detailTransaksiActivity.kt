@@ -58,7 +58,7 @@ class detailTransaksiActivity : AppCompatActivity() {
             )
         }
         binding.btnDelete.setOnClickListener {
-            deletedata(intent.getStringExtra("idTransaski").toString())
+            deletedata(idTransaksi)
         }
         binding.btnhistory.setOnClickListener {
             val intent = Intent(this, historyTranActivity::class.java)
