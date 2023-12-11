@@ -120,7 +120,7 @@ class detailTransaksiActivity : AppCompatActivity() {
                 .build()
             dattePicker.show(supportFragmentManager, "datePicker")
             dattePicker.addOnPositiveButtonClickListener { selectedDate ->
-                val simpleDataFormat = SimpleDateFormat("dd--mm-yy", Locale.getDefault())
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
                 val formattedDate = simpleDataFormat.format(Date(selectedDate))
                 edtanggalmasuk.setText(formattedDate)
             }
@@ -132,7 +132,7 @@ class detailTransaksiActivity : AppCompatActivity() {
                 .build()
             dattePicker.show(supportFragmentManager, "datePicker")
             dattePicker.addOnPositiveButtonClickListener { selectedDate ->
-                val simpleDataFormat = SimpleDateFormat("dd--mm-yy", Locale.getDefault())
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
                 val formattedDate = simpleDataFormat.format(Date(selectedDate))
                 edtanggalkeluar.setText(formattedDate)
             }
@@ -144,7 +144,7 @@ class detailTransaksiActivity : AppCompatActivity() {
                 .build()
             dattePicker.show(supportFragmentManager, "datePicker")
             dattePicker.addOnPositiveButtonClickListener { selectedDate ->
-                val simpleDataFormat = SimpleDateFormat("dd--mm-yy", Locale.getDefault())
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
                 val formattedDate = simpleDataFormat.format(Date(selectedDate))
                 edjadwalbayar.setText(formattedDate)
             }

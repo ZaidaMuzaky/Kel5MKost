@@ -76,7 +76,7 @@ class tambahTransaksiActivity : AppCompatActivity() {
                 .build()
             dattePicker.show(supportFragmentManager, "datePicker")
             dattePicker.addOnPositiveButtonClickListener { selectedDate ->
-                val simpleDataFormat = SimpleDateFormat("dd--mm-yy", Locale.getDefault())
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
                 val formattedDate = simpleDataFormat.format(Date(selectedDate))
                 binding.inpTanggalmasuk.setText(formattedDate)
             }
@@ -88,7 +88,7 @@ class tambahTransaksiActivity : AppCompatActivity() {
                 .build()
             dattePicker.show(supportFragmentManager, "datePicker")
             dattePicker.addOnPositiveButtonClickListener { selectedDate ->
-                val simpleDataFormat = SimpleDateFormat("dd--mm-yy", Locale.getDefault())
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
                 val formattedDate = simpleDataFormat.format(Date(selectedDate))
                 binding.inpTanggalkeluar.setText(formattedDate)
             }
@@ -100,7 +100,7 @@ class tambahTransaksiActivity : AppCompatActivity() {
                 .build()
             dattePicker.show(supportFragmentManager, "datePicker")
             dattePicker.addOnPositiveButtonClickListener { selectedDate ->
-                val simpleDataFormat = SimpleDateFormat("dd--mm-yy", Locale.getDefault())
+                val simpleDataFormat = SimpleDateFormat("dd-MM-yy", Locale.getDefault())
                 val formattedDate = simpleDataFormat.format(Date(selectedDate))
                 binding.inpJadwalbayar.setText(formattedDate)
             }
