@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ptikel5.makkost.Act.detailPenyewaActivity
+import com.ptikel5.makkost.Act.detailTransaksiActivity
 import com.ptikel5.makkost.Act.tambahTransaksiActivity
 import com.ptikel5.makkost.adapt.penyewaAdapt
 import com.ptikel5.makkost.adapt.tranAdapt
@@ -56,7 +57,7 @@ class PembayaranFragment : Fragment() {
         })
         adapter.setOnItemClickListener(object : tranAdapt.onItemClickListener{
             override fun onItemClick(position: Int) {
-                val intent = Intent(requireActivity(), detailPenyewaActivity::class.java)
+                val intent = Intent(requireActivity(), detailTransaksiActivity::class.java)
                 val selectedKamar = viewModel.alltransaksi.value?.get(position)
 
                 selectedKamar?.let {
@@ -65,7 +66,7 @@ class PembayaranFragment : Fragment() {
                     intent.putExtra("idKamar", it.idKamar)
                     intent.putExtra("idPenyewa", it.idPenyewa)
                     intent.putExtra("tanggalMasuk", it.tanggalMasuk)
-                    intent.putExtra("tangggalKeluar", it.tanggalKeluar)
+                    intent.putExtra("tanggalKeluar", it.tanggalKeluar)
                     intent.putExtra("jadwalBayar", it.jadwalBayar)
                     intent.putExtra("totalBayar", it.totalBayar)
 
