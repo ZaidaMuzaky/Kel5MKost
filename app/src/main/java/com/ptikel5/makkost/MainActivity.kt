@@ -1,9 +1,19 @@
 package com.ptikel5.makkost
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.ptikel5.makkost.databinding.ActivityMainBinding 
+import com.ptikel5.makkost.databinding.ActivityMainBinding
+import com.ptikel5.makkost.datacl.notificationID
+import java.util.Calendar
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +41,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 }
-//    mengganti fragment
+
+
+
+
+    //    mengganti fragment
     private fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

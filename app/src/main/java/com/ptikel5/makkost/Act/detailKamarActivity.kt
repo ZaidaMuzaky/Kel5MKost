@@ -47,6 +47,7 @@ class detailKamarActivity : AppCompatActivity() {
         }
 
     }
+
     private fun deletedata(idRumah: String, idKamar: String) {
         val userid = FirebaseAuth.getInstance().currentUser?.uid
         database = userid?.let {
