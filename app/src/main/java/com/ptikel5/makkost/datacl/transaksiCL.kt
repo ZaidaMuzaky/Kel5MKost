@@ -7,6 +7,6 @@ data class transaksiCL(
     var idPenyewa : String? = null,
     var tanggalMasuk : String? = null,
     var tanggalKeluar : String? = null,
-    var JadwalBayar : String? = null,
+    var jadwalBayar : String? = null,
     var totalBayar : String? = null,
 )

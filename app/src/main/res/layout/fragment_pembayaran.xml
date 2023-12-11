@@ -7,7 +7,7 @@
     tools:context=".PembayaranFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rumList"
+        android:id="@+id/transaksilist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
